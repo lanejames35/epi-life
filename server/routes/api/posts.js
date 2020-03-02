@@ -12,6 +12,19 @@ router.get("/", async (req, res) => {
     console.log(err);
   }
 })
+// Get post by ID
+router.get("/:id", async (req, res) => {
+  try{
+    const posts = await loadPostsCollection();
+    res.send ( await posts.findOne({ 
+      _id: new mongodb.ObjectID(req.params.id)
+    }) )
+  } catch(err){
+    console.log(err);
+  }
+  res.status(200).send();
+})
+
 // Post a post
 router.post("/", async (req, res) => {
   try{
