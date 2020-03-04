@@ -16,9 +16,9 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try{
     const posts = await loadPostsCollection();
-    res.send ( await posts.findOne({ 
+    res.send( await posts.findOne({ 
       _id: new mongodb.ObjectID(req.params.id)
-    }) )
+    }) );
   } catch(err){
     console.log(err);
   }
