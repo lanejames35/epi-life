@@ -1,19 +1,15 @@
-const userSchema = {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "http://example.com/product.schema.json",
-  "title": "Product",
-  "description": "A product in the catalog",
-  "type": "object",
-  "properties": {
-    "userID": {
-      "description": "The unique identifier for a user",
-      "type": "string"
-    },
-    "googleid": {
-      "description": "The identifier for a specific google account",
-      "type": "string"
-    }
-  }
-};
+"use strict";
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-module.exports = userSchema;
+const userSchema = new Schema({
+  userID: String,
+  githubid: String,
+  username: String,
+  email: String,
+  avatar: String
+});
+
+const User = mongoose.model('users', userSchema);
+
+module.exports = User;

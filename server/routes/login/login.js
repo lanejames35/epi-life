@@ -2,18 +2,22 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
 
 // Auth with GitHub
 router.get("/github", passport.authenticate("github", {
-  scope: ['user:email']
+  scope: ['user:email'],
 }));
 
 // GitHub Callback
 router.get(
   "/github/redirect",
-  passport.authenticate("github"),
+  passport.authenticate("github", { session: false }),
   (req, res) => {
-    console.log("Logged in with GitHub");
+    // Respond with JWT
+    const token = jwt.sign({ user: req._id }, process.env.TOKEN_SECRET);
+    // put the token into a session store
+    res.redirect('/');
 });
 
 module.exports = router;

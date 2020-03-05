@@ -6,6 +6,7 @@ const posts = require("./routes/api/posts");
 const login = require("./routes/login/login");
 const passportConfig = require("./services/passport-config");
 const mongoose = require("mongoose");
+const passport = require("passport");
 const port = process.env.PORT || 4000;
 
 const app = express();
@@ -15,17 +16,18 @@ mongoose.connect(
   "mongodb+srv://dbMaster:Senators123@cluster0-nkbbk.azure.mongodb.net/test?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    dbName: 'vue_express'
   }
 );
-const db = mongoose.connection;
-db.on('open', () =>{
+mongoose.connection.on('open', () =>{
   console.log("Connected to the database");
 });
 
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
+app.use(passport.initialize());
 app.use("/api/posts", posts);
 app.use("/login", login);
 
