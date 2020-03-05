@@ -18,7 +18,18 @@ passport.use(
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: '/login/github/redirect'
-  }, (accessToken, refreshToken, profile, done) => {
-    console.log(profile);
+  }, async (accessToken, refreshToken, profile, done) => {
+    const userExists = await User.findOne({ githubid: profile.id });
+    if(!userExists){
+      await new User({
+        username: profile.displayName,
+        githubid: profile.id,
+        email: profile.emails[0].value,
+        avatar: profile.photos[0].value
+      }).save();
+    }
+    else{
+      
+    }
   })
 );

@@ -1,7 +1,7 @@
 "use strict";
 const express = require("express");
 const router = express.Router();
-const mongodb = require("mongodb");
+const mongoose = require("mongoose");
 
 // Get posts
 router.get("/", async (req, res) => {
@@ -54,14 +54,14 @@ router.delete("/:id", async (req, res) => {
 // Load posts from storage
 async function loadPostsCollection(){
   try{
-    const client = await mongodb.MongoClient.connect(
+    const client = await mongoose.connect(
       "mongodb+srv://dbMaster:Senators123@cluster0-nkbbk.azure.mongodb.net/test?retryWrites=true&w=majority",
       {
         useNewUrlParser: true,
         useUnifiedTopology: true
       }
     );
-    return client.db("vue_express").collection("posts");
+    return client.collection("posts");
   } catch(err){
     console.log(err);
   }
