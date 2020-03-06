@@ -24,17 +24,13 @@ router.get(
 
 // Handle the logout
 router.get("/logout", (req, res) => {
-  // TODO 
-  // destroy session in the database
   console.log("logging out");
   token = null;
 })
 
 // Retrive JWT for a authenticated user
 router.get("/user", (req, res) => {
-  // TODO 
-  // Pull this information form the databset
-  res.status(200).send(token);
+  res.status(200).json({ token });
 })
 
 module.exports = router;
