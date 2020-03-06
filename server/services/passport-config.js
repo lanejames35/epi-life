@@ -5,6 +5,17 @@ const passport = require("passport");
 const GitHubStrategy = require("passport-github2");
 const User = require("../models/user");
 
+passport.serializeUser((user, done) => {
+  console.log("Serializing", user);
+  done(null, user._id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id , (err, user) => {
+    console.log("User", user);
+    done(err, user);
+  });
+});
 
 // passport.use(
 //   new GoogleStrategy({
@@ -29,11 +40,11 @@ passport.use(
         avatar: profile.photos[0].value
       }).save();
       console.log(`A user was created ${createdUser}`);
-      return done(null, createdUser);
+      done(null, createdUser);
     }
     else{
       console.log(`Logged in as ${userExists.username}`);
-      return done(null, userExists);
+      done(null, userExists);
     }
   })
 );
