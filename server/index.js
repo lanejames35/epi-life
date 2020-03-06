@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const posts = require("./routes/api/posts");
-const login = require("./routes/login/login");
+const auth = require("./routes/auth/auth");
 const passportConfig = require("./services/passport-config");
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(passport.initialize());
 app.use("/api/posts", posts);
-app.use("/login", login);
+app.use("/auth", auth);
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);

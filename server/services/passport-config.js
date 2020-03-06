@@ -18,7 +18,7 @@ passport.use(
   new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: '/login/github/redirect'
+    callbackURL: '/auth/github/redirect'
   }, async (accessToken, refreshToken, profile, done) => {
     const userExists = await User.findOne({ githubid: profile.id });
     if(!userExists){
@@ -29,7 +29,7 @@ passport.use(
         avatar: profile.photos[0].value
       }).save();
       console.log(`A user was created ${createdUser}`);
-      done(null, createdUser);
+      return done(null, createdUser);
     }
     else{
       console.log(`Logged in as ${userExists.username}`);
