@@ -22,7 +22,6 @@ router.get("/:id", async (req, res) => {
   } catch(err){
     console.log(err);
   }
-  res.status(200).send();
 })
 
 // Post a post

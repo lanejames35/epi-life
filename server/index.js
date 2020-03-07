@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const posts = require("./routes/api/posts");
+const user = require("./routes/api/user");
 const auth = require("./routes/auth/auth");
 const logout = require("./routes/logout/logout");
 const passportConfig = require("./services/passport-config");
@@ -29,7 +30,10 @@ mongoose.connection.on('open', () =>{
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: "http://localhost:8080"
+}));
 app.use(session({
   secret: process.env.TOKEN_SECRET,
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
@@ -45,12 +49,10 @@ app.use(passport.session());
 
 // Routes
 app.use("/api/posts", posts);
+app.use("/api/user", user);
 app.use("/auth", auth);
 app.use("/logout", logout);
 
-app.get("/", (req, res) =>{
-  res.json({ user: req.user });
-});
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);

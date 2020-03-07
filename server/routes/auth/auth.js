@@ -13,7 +13,7 @@ router.get(
   "/github/redirect",
   passport.authenticate("github"),
   (req, res) => {
-    res.redirect("/");
+    res.redirect("http://localhost:8080");
 });
 
 module.exports = router;
