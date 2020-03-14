@@ -37,7 +37,11 @@ router.post("/", (req, res, next) => {
       const post = new Post({
         title: fields.title,
         tags: fields.tags,
-        author: new mongoose.Types.ObjectId(fields.author),
+        author: {
+          name: req.user.username,
+          avatar: req.user.avatar
+        },
+        // author: new mongoose.Types.ObjectId(fields.author),
         created: new Date(),
         body: fields.markdown,
         banner: files.bannerImage.path
