@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   req.logout();
-  res.send("Bye Bye!");
-})
+  res.redirect("http://localhost:8080");
+});
 
 module.exports = router;

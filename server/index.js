@@ -31,8 +31,7 @@ mongoose.connection.on('open', () =>{
 // Middleware
 app.use(bodyParser.json());
 app.use(cors({
-  credentials: true,
-  origin: "http://localhost:8080"
+  credentials: true
 }));
 app.use(session({
   secret: process.env.TOKEN_SECRET,
