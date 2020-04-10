@@ -7,6 +7,10 @@ const passport = require("passport");
 router.get("/github", passport.authenticate("github", {
   scope: ['user:email'],
 }));
+// Auth with Google
+router.get("/google", passport.authenticate("google", {
+  scope: ['profile', 'email']
+}));
 
 // GitHub Callback
 router.get(
@@ -14,6 +18,15 @@ router.get(
   passport.authenticate("github"),
   (req, res) => {
     res.redirect("http://localhost:8080");
-});
+  }
+);
+// Google callback
+router.get(
+  "/google/redirect",
+  passport.authenticate("google"),
+  (req, res) => {
+    res.redirect("http://localhost:8080");
+  }
+);
 
 module.exports = router;
