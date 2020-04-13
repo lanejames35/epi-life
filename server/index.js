@@ -24,7 +24,7 @@ mongoose.connect(
     dbName: 'vue_express'
   }
 );
-mongoose.connection.on('open', () =>{
+mongoose.connection.on('open', () => {
   console.log("Connected to the database");
 });
 
@@ -52,7 +52,7 @@ app.use("/api/user", user);
 app.use("/auth", auth);
 app.use("/logout", logout);
 
-
+// Turn on the server
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });

@@ -49,7 +49,7 @@ passport.use(
   }, async (accessToken, refreshToken, profile, done) => {
     const userExists = await User.findOne({ socialid: profile.id });
     if(!userExists){
-      const createdUser = await new GitHubUser({
+      const createdUser = await new User({
         username: profile.displayName,
         socialid: profile.id,
         email: profile.emails[0].value,
