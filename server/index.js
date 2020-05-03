@@ -23,7 +23,7 @@ mongoose.connect(
     useUnifiedTopology: true,
     dbName: 'vue_express'
   }
-);
+).catch(error => console.log("Database connection error", error));
 mongoose.connection.on('open', () => {
   console.log("Connected to the database");
 });
