@@ -8,7 +8,7 @@ const postSchema = new Schema({
   author: Object,
   created: Date,
   body: String,
-  banner: String
+  banner: Object
 });
 
 const Post = mongoose.model('post', postSchema);
