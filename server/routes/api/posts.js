@@ -46,7 +46,7 @@ router.post("/", (req, res, next) => {
         else {
           const post = new Post({
             title: fields.title,
-            tags: fields.tags,
+            tags: fields.tagString,
             author: {
               name: 'Foo',
               avatar: 'https://cdn.pixabay.com/photo/2016/03/27/22/22/fox-1284512_960_720.jpg'
@@ -61,15 +61,18 @@ router.post("/", (req, res, next) => {
               url: image.secure_url
             }
           });
-          post.save((err) =>{
+          post.save((err, product) => {
             if(err){
-              res.status(500).send({
+              res.status(500).json({
                 Error: "A server error occurred",
                 Message: err
-              })
+              });
+            } else {
+              res.status(201).json({
+                id: product._id
+              });
             }
           });
-          res.status(201).send();
         }
       });
     }
